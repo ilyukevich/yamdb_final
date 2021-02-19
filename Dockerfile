@@ -1,10 +1,14 @@
-#FROM python:3.8.5
+FROM python:3.8.5
 
-FROM ilyukevich/yamdb:v1
+#FROM ilyukevich/yamdb:v1
 
 RUN mkdir /code
 
-COPY requirements.txt /code
+#COPY requirements.txt /code
+
+COPY . /code
+
+RUN apt update && apt upgrade
 
 RUN pip install -r /code/requirements.txt && \
     python manage.py makemigrations && \

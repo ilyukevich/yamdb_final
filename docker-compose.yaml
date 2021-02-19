@@ -1,21 +1,37 @@
 version: '3' 
  
 volumes: 
-  postgres_data: 
+  postgres_data:
+  static_volumes: 
  
-services: 
+services:
+ 
   db: 
     image: postgres:12.4 
     volumes: 
       - postgres_data:/var/lib/postgresql/data/ 
     env_file: 
-      - ./.env 
+      - ./.env
+ 
   web: 
-    build: . 
+  # build: .
+    image: ilyukevich/yamdb:v1 
     restart: always 
        ports: 
       - "8000:8000"  
     depends_on: 
       - db 
+    - static_volumes:/code/static
     env_file: 
-      - ./.env 
+      - ./.env
+ 
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - static_volume:/code/static
+    restart: always
+    ports: 
+      - "1337:80"
+    depends_on:
+      - web
