@@ -22,4 +22,4 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             (obj.author == request.user)
             or request.method in permissions.SAFE_METHODS
             or request.user.is_moderator
-            )
+        )

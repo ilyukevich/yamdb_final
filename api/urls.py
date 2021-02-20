@@ -18,7 +18,7 @@ v1_router.register(r'titles/(?P<title_id>[0-9]+)/reviews', ReviewViewSet)
 v1_router.register(
     r'titles/(?P<title_id>[0-9]+)/reviews/(?P<review_id>[0-9]+)/comments',
     CommentViewSet,
-    )
+)
 
 
 authpatterns = [
@@ -43,4 +43,4 @@ authpatterns = [
 urlpatterns = [
     path('v1/auth/', include(authpatterns)),
     path('v1/', include(v1_router.urls)),
-    ]
+]

@@ -12,21 +12,21 @@ class UserSerializer(serializers.ModelSerializer):
     """
     role = serializers.ChoiceField(choices=User.RoleList)
     username = serializers.CharField(
-                        required=True,
-                        validators=[
-                            UniqueValidator(
-                                queryset=User.objects.all(),
-                                ),
-                            ],
-                        )
+                                    required=True,
+                                    validators=[
+                                        UniqueValidator(
+                                        queryset=User.objects.all(),
+                                        ),
+                                    ],
+    )
     email = serializers.EmailField(
                         required=True,
                         validators=[
                             UniqueValidator(
-                                queryset=User.objects.all(),
-                                ),
-                            ],
-                        )
+                            queryset=User.objects.all(),
+                            ),
+                        ],
+    )
     bio = serializers.CharField(default='', allow_blank=True)
 
     class Meta:
@@ -38,7 +38,7 @@ class UserSerializer(serializers.ModelSerializer):
                 'bio',
                 'email',
                 'role',
-                )
+        )
 
 
 class EmailSerializer(serializers.Serializer):
@@ -92,7 +92,7 @@ class TitleSerializer_get(serializers.ModelSerializer):
                 'description',
                 'genre',
                 'category',
-                )
+        )
         model = Title
 
     def get_rating(self, obj):
@@ -107,11 +107,11 @@ class TitleSerializer_post(serializers.ModelSerializer):
         queryset=Genre.objects.all(),
         slug_field='slug',
         many=True,
-        )
+    )
     category = serializers.SlugRelatedField(
         queryset=Category.objects.all(),
         slug_field='slug',
-        )
+    )
 
     class Meta:
         model = Title
@@ -132,9 +132,9 @@ class ReviewSerializer(serializers.ModelSerializer):
     Сериализатор для Review
     """
     author = serializers.SlugRelatedField(
-                            slug_field='username',
-                            read_only=True,
-                            )
+                                        slug_field='username',
+                                        read_only=True,
+    )
 
     def validate(self, data):
         """
@@ -143,8 +143,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         title = self.context.get('title')
         request = self.context.get('request')
         if (
-            request.method != 'PATCH' and
-            Review.objects.filter(title=title,
+            request.method != 'PATCH'
+                and Review.objects.filter(title=title,
                                   author=request.user,
                                   ).exists()):
             raise serializers.ValidationError('Assessment exists!')
