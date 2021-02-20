@@ -8,7 +8,7 @@ RUN mkdir /code
 
 COPY . /code
 
-RUN apt update && apt upgrade
+#RUN apt update && apt upgrade
 
 RUN pip install -r /code/requirements.txt && \
     python manage.py makemigrations && \
