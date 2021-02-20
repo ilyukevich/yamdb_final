@@ -16,21 +16,20 @@ services:
   web:
     image: ilyukevich/yamdb:v1 
     restart: always 
-    ports:
-      - "8000:8000"  
     depends_on: 
       - db 
-      - static_volumes:/code/static
     env_file: 
       - ./.env
  
   nginx:
     image: nginx:latest
+    restart: always
     volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - static_volume:/code/static
+      - ./static:/static
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./media:/media
     restart: always
     ports: 
-      - "1337:80"
+      - "80:80"
     depends_on:
       - web

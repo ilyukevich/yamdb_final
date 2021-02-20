@@ -1,21 +1,13 @@
 FROM python:3.8.5
 
-#FROM ilyukevich/yamdb:v1
-
 RUN mkdir /code
 
-#COPY requirements.txt /code
+COPY . .
 
-COPY . /code
+RUN python -m pip install --upgrade pip
 
-#RUN apt update && apt upgrade
+RUN pip install -r requirements.txt
 
-RUN pip install -r /code/requirements.txt
-    
-CMD python manage.py makemigrations && \
-    python manage.py makemigrations api && \
-    python manage.py migrate && \
-    python manage.py collectstatic
+WORKDIR /code
 
-
-#CMD gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8000
+CMD gunicorn yamdb_final.wsgi:application --bind 0.0.0.0:8000
