@@ -23,4 +23,3 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             or request.method in permissions.SAFE_METHODS
             or request.user.is_moderator
             )
-    

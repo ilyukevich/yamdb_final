@@ -1,3 +1,4 @@
+import os
 from api_yamdb.settings import *
 
 DATABASES = {

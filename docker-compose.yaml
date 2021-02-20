@@ -13,15 +13,14 @@ services:
     env_file: 
       - ./.env
  
-  web: 
-  # build: .
+  web:
     image: ilyukevich/yamdb:v1 
     restart: always 
-       ports: 
+    ports:
       - "8000:8000"  
     depends_on: 
       - db 
-    - static_volumes:/code/static
+      - static_volumes:/code/static
     env_file: 
       - ./.env
  
