@@ -12,12 +12,12 @@ class UserSerializer(serializers.ModelSerializer):
     """
     role = serializers.ChoiceField(choices=User.RoleList)
     username = serializers.CharField(
-                                    required=True,
-                                    validators=[
-                                        UniqueValidator(
-                                        queryset=User.objects.all(),
-                                        ),
-                                    ],
+        required=True,
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+            ),
+        ],
     )
     email = serializers.EmailField(
                         required=True,
@@ -32,12 +32,12 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-                'first_name',
-                'last_name',
-                'username',
-                'bio',
-                'email',
-                'role',
+            'first_name',
+            'last_name',
+            'username',
+            'bio',
+            'email',
+            'role',
         )
 
 
@@ -85,13 +85,13 @@ class TitleSerializer_get(serializers.ModelSerializer):
 
     class Meta:
         fields = (
-                'id',
-                'name',
-                'year',
-                'rating',
-                'description',
-                'genre',
-                'category',
+            'id',
+            'name',
+            'year',
+            'rating',
+            'description',
+            'genre',
+            'category',
         )
         model = Title
 
@@ -132,8 +132,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     Сериализатор для Review
     """
     author = serializers.SlugRelatedField(
-                                        slug_field='username',
-                                        read_only=True,
+        slug_field='username',
+        read_only=True,
     )
 
     def validate(self, data):
@@ -144,9 +144,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if (
             request.method != 'PATCH'
-                and Review.objects.filter(title=title,
-                                  author=request.user,
-                                  ).exists()):
+                and Review.objects.filter(title=title, author=request.user,).exists()):
             raise serializers.ValidationError('Assessment exists!')
         return data
 

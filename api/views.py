@@ -62,9 +62,9 @@ class UserViewSet(viewsets.ModelViewSet):
         """
         partial = kwargs.pop('partial', True)
         serializer = self.get_serializer(
-                                        request.user,
-                                        data=request.data,
-                                        partial=partial,
+            request.user,
+            data=request.data,
+            partial=partial,
         )
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
@@ -138,8 +138,8 @@ class GetAuthPairToken(GetConfirmCodeView):
                 status=status.HTTP_200_OK,
             )
         return Response(
-                        serializer.errors,
-                        status=status.HTTP_400_BAD_REQUEST,
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
 
@@ -161,10 +161,10 @@ class TitleViewSet(viewsets.ModelViewSet):
 
 
 class IndividualViewSet(
-                        viewsets.GenericViewSet,
-                        mixins.CreateModelMixin,
-                        mixins.DestroyModelMixin,
-                        mixins.ListModelMixin,
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
+    mixins.ListModelMixin,
 ):
     """
     используем класс для настройки применяемых методов
@@ -256,9 +256,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         получение всех комментариев
         """
         review = get_object_or_404(
-                                    Review,
-                                    pk=self.kwargs.get('review_id'),
-                                    title=self.kwargs.get('title_id'),
+            Review,
+            pk=self.kwargs.get('review_id'),
+            title=self.kwargs.get('title_id'),
         )
         return review.comments.all()
 
@@ -267,8 +267,8 @@ class CommentViewSet(viewsets.ModelViewSet):
         сохранение нового экземпляра объекта
         """
         review = get_object_or_404(
-                                    Review,
-                                    pk=self.kwargs.get('review_id'),
-                                    title=self.kwargs.get('title_id'),
+            Review,
+            pk=self.kwargs.get('review_id'),
+            title=self.kwargs.get('title_id'),
         )
         serializer.save(review=review, author=self.request.user)
