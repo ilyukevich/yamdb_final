@@ -10,11 +10,12 @@ COPY . /code
 
 #RUN apt update && apt upgrade
 
-RUN pip install -r /code/requirements.txt && \
-    python manage.py makemigrations && \
+RUN pip install -r /code/requirements.txt
+    
+CMD python manage.py makemigrations && \
     python manage.py makemigrations api && \
     python manage.py migrate && \
     python manage.py collectstatic
 
 
-CMD gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8000
+#CMD gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8000
