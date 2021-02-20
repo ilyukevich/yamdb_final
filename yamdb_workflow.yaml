@@ -1,4 +1,4 @@
-name: Flask-app workflow
+name: YAMDB
 
 on: [push]
 
@@ -20,10 +20,10 @@ jobs:
         pip install -r requirements.txt
 
     - name: Lint with flake8
-      run: flake8 .
+      run: flake8 . --exclude tests,api/migrations,api_yamdb/settings.py,api_yamdb/urls.py,api,posts,users,venv
 
     - name: Test with pytest
-      run: pytest tests.py
+      run: pytest 
 
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
@@ -46,12 +46,23 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ilyukevich/flask-app:latest
+        tags: ilyukevich/workflow:latest
 
   deploy:
+  
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
     steps:
+    - name: Check out the repo
+      uses: actions/checkout@v2
+    - name: copy docker-compose and nginx
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.SSH_KEY }}
+        source: "docker-compose.yaml, nginx/default.conf, static, media"
+        target: "~"
     - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
@@ -59,9 +70,11 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          sudo docker pull ilyukevich/flask-app
-          sudo docker stop $(sudo docker ps -a -q)
-          sudo docker run --rm -d -p 5000:5000 ilyukevich/flask-app
+          cd ${{ env.PROJECT_ROOT }}
+          sudo docker pull ilyukevich/workflow:latest
+          sudo docker-compose stop
+          sudo docker-compose rm web
+          sudo docker-compose up -d 
 
   send_message:
     runs-on: ubuntu-latest
