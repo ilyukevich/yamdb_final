@@ -20,12 +20,12 @@ class UserSerializer(serializers.ModelSerializer):
         ],
     )
     email = serializers.EmailField(
-                        required=True,
-                        validators=[
-                            UniqueValidator(
-                            queryset=User.objects.all(),
-                            ),
-                        ],
+        required=True,
+        validators=[
+            UniqueValidator(
+                queryset=User.objects.all(),
+            ),
+        ],
     )
     bio = serializers.CharField(default='', allow_blank=True)
 
