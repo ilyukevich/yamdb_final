@@ -10,7 +10,8 @@ volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env  
-      web:
+  
+  web:
     image: ilyukevich/workflow:latest
     restart: always
     depends_on:
@@ -20,7 +21,8 @@ volumes:
       - media_volumes:/code/media
     env_file:
       - ./.env  
-      web_nginx:
+  
+  web_nginx:
     image: nginx:1.19.6
     restart: always
     volumes:
