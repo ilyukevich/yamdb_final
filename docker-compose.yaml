@@ -11,7 +11,7 @@ volumes:
     env_file:
       - ./.env  
       web:
-    image: ilyukevich/yamdb:v1
+    image: ilyukevich/workflow:latest
     restart: always
     depends_on:
       - db
