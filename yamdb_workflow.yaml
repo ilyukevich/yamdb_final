@@ -47,7 +47,6 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          passphrase: ${{ secrets.PASSPHRASE }}
           key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.yaml, nginx/default.conf, static, .env"
           target: ${{ env.PROJECT_ROOT }}
