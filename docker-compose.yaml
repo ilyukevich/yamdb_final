@@ -12,7 +12,7 @@ volumes:
       - ./.env  
   
   web:
-    image: ilyukevich/workflow:latest
+    image: ilyukevich/yamdb_final:latest
     restart: always
     depends_on:
       - db
