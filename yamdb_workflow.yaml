@@ -12,7 +12,7 @@ jobs:
         python-version: '3.8'
     - run: pip install -r requirements.txt
     - run: pytest
-    - run: flake8 --max-line-length=119 --exclude=tests,migrations,venv .  
+    - run: flake8 . --exclude tests,api/migrations,api_yamdb/settings.py,api_yamdb/urls.py,api,posts,users,venv
   build:
     runs-on: ubuntu-latest
     needs: tests
@@ -35,7 +35,7 @@ jobs:
           
   deploy:
     env:
-      PROJECT_ROOT: ~/www/yamdb_final
+      PROJECT_ROOT: ~/code
     runs-on: ubuntu-latest
     needs: build
     if: github.ref == 'refs/heads/master'
