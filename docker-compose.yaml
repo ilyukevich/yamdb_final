@@ -2,7 +2,8 @@ version: '3'
 
 volumes:
   postgres_data:
-  static:
+  static_volumes:
+  nginx_volumes:
 
 services:
   db:
@@ -25,7 +26,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - static:/var/nginx/static/
-      - nginx:/etc/nginx/conf.d/
+      - static_volumes:/var/nginx/static/
+      - nginx_volumes:/etc/nginx/conf.d/
     depends_on:
       - web
