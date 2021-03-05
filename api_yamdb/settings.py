@@ -25,8 +25,6 @@ SECRET_KEY = 'p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^##zgl9(vs'
 DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
-#ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "84.252.129.99", "http://84.252.129.99/",]
-
 
 # Application definition
 
@@ -128,9 +126,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, '/static/'), )
+#STATICFILES_DIRS = (os.path.join(BASE_DIR, '/static/'), )
 
-STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
