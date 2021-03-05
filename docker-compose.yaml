@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   postgres_data:
+  static:
 
 services:
   db:
